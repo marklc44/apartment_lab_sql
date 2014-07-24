@@ -35,23 +35,42 @@ Write down the following sql statements that are required to solve the following
 6. Show the name of an owner whose name is Donald. 
 `SELECT * FROM owners WHERE name LIKE 'Donald%';`
 7. Show the age of all owners who are older than 30. 
+`SELECT age FROM owners WHERE (age > 30);`
 8. Show the name of all owners whose name starts with an E. 
+`SELECT name FROM owners WHERE name='E%';`
 9. Add an owner named John who is 33 years old to the owners table.
+`INSERT INTO owners (name, age) VALUES ('John', 33)`
 10. Add an owner named Jane who is 43 years old to the owners table. 
+`INSERT INTO owners (name, age) VALUES ('Jane', 43);`
 11. Change Jane's age to 30. 
+`UPDATE owners SET age=30 WHERE name='Jane';`
 12. Change Jane's name to Janet. 
+`UPDATE owners SET name='Janet' WHERE name='Jane';`
 13. Add a property named Archstone that has 20 units. 
+`You can't add becuase owner_id may not be null.`
 14. Delete the owner named Jane. 
-15. Show all of the properties in alphabetical order that are not named Archstone and do not have an id of 3 or 5. 
+`DELETE FROM owners WHERE name='Jane';`
+15. Show all of the properties in alphabetical order that are not named Archstone and do not have an id of 3 or 5.
+`SELECT * FROM properties WHERE
+(name != 'Archstone')
+AND (property_id != 3 OR property_id != 5)
+ORDER BY name ASC;` 
 16. Count the total number of rows in the properties table.
+`SELECT COUNT(*) FROM properties;
 17. Show the highest age of all owners.
+`SELECT MAX(age) FROM owners;`
 18. Show the names of the first three owners in your owners table.
-19. Create a foreign key that references the owner_id in the owners table and forces the constraint ON DELETE NO ACTION. 
+`SELECT name FROM owners LIMIT 3;`
+19. Create a foreign key that references the owner_id in the owners table and forces the constraint ON DELETE NO ACTION.
+`ALTER TABLE properties ADD CONSTRAINT owner_fk FOREIGN KEY (owner_id) REFERENCES owners (owner_id) ON DELETE NO ACTION;` 
 20. Show all of the information from the owners table and the properties table in one joined table.  
+`SELECT * FROM owners JOIN properties ON owners.owner_id=properties.property_id;`
 ```
 Bonus (this might require you to look up documentation online)
 
 ```
-1. In the properties table change the name of the column "name" to "property_name". 
+1. In the properties table change the name of the column "name" to "property_name".
+`ALTER TABLE properties RENAME COLUMN name TO property_name;` 
 2. Count the total number of properties where the owner_id is between 1 and 3.
+`SELECT COUNT(*) FROM properties WHERE (owner_id <3) AND (owner_id >1);`
 ```
